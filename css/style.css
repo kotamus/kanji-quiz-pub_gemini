@@ -116,13 +116,76 @@ h1 {
     margin-top: 15px;
 }
 
-.grade-btn,
+/* Grade Buttons - Colorful Block Style */
+.grade-btn {
+    border: none;
+    padding: 20px 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 0;
+}
+
+.grade-btn:active {
+    top: 6px;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.grade-btn[data-grade="1"] {
+    background-color: #FF8BA7;
+}
+
+/* Soft Pink */
+.grade-btn[data-grade="2"] {
+    background-color: #4CC9F0;
+}
+
+/* Soft Blue */
+.grade-btn[data-grade="3"] {
+    background-color: #06D6A0;
+}
+
+/* Soft Green */
+.grade-btn[data-grade="4"] {
+    background-color: #FFD166;
+    color: #555;
+    text-shadow: none;
+}
+
+/* Soft Yellow/Orange - Dark text */
+.grade-btn[data-grade="5"] {
+    background-color: #118AB2;
+}
+
+/* Strong Blue */
+.grade-btn[data-grade="6"] {
+    background-color: #9D4EDD;
+}
+
+/* Purple */
+
+.grade-btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.grade-btn:active:hover {
+    transform: translateY(0);
+}
+
 .mode-btn {
     background: #FFF;
     border: 3px solid #e0e0e0;
-    padding: 15px;
+    padding: 25px;
     border-radius: 20px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: bold;
@@ -130,24 +193,15 @@ h1 {
     box-shadow: 0 4px 0 #e0e0e0;
 }
 
-.mode-btn {
-    padding: 25px;
-    font-size: 20px;
-}
-
-.grade-btn:active,
 .mode-btn:active {
     transform: translateY(4px);
     box-shadow: 0 0 0 #e0e0e0;
 }
 
-.grade-btn:hover,
 .mode-btn:hover {
     background: #fff8e1;
 }
 
-/* Specific colors for grades if desired, but keeping consistent for now */
-.grade-btn.active,
 .mode-btn.active {
     background: #FF9F1C;
     color: white;
@@ -155,7 +209,6 @@ h1 {
     box-shadow: 0 4px 0 #e68a12;
 }
 
-.grade-btn.active:active,
 .mode-btn.active:active {
     box-shadow: 0 0 0 #e68a12;
 }

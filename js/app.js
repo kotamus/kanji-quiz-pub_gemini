@@ -109,6 +109,14 @@ function backToMenu() {
 // Show Answer
 function showAnswer() {
     document.getElementById('answerDisplay').style.display = 'block';
+
+    // Show self-check buttons and instruction
+    document.getElementById('selfCheckButtons').style.display = 'grid';
+    document.getElementById('selfCheckInstruction').style.display = 'block';
+
+    // Hide show answer button to avoid confusion? Or keep it? 
+    // Usually keep it is fine, but maybe disable it.
+    document.querySelector('.show-answer-btn').style.display = 'none';
 }
 
 // Self Check
@@ -473,6 +481,12 @@ function showQuestion() {
         }
         document.getElementById('answerDisplay').textContent = question.word;
         document.getElementById('answerDisplay').style.display = 'none';
+
+        // Hide self-check initially
+        document.getElementById('selfCheckButtons').style.display = 'none';
+        document.getElementById('selfCheckInstruction').style.display = 'none';
+        document.querySelector('.show-answer-btn').style.display = 'inline-block'; // Ensure show button is visible
+
         document.querySelectorAll('.check-btn').forEach(function (btn) { btn.disabled = false; });
     }
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;

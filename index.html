@@ -85,7 +85,13 @@
                     <div class="reading-text" id="writingHint" style="margin-top: 10px;"></div>
                     <button class="show-answer-btn" onclick="showAnswer()">答えを見る</button>
                     <div class="answer-display" id="answerDisplay"></div>
-                    <div class="self-check-buttons">
+
+                    <div id="selfCheckInstruction"
+                        style="display: none; margin-top: 15px; font-size: 18px; font-weight: bold; color: #E67E22;">
+                        答えを見て、あっていたか自分で判定してください。
+                    </div>
+
+                    <div class="self-check-buttons" id="selfCheckButtons" style="display: none;">
                         <button class="check-btn correct" onclick="selfCheck(true)">
                             ⭕ 正解
                         </button>
