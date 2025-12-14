@@ -96,6 +96,49 @@ h1 {
     }
 }
 
+/* Combo Display */
+.combo-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFD700;
+    /* Gold */
+    text-shadow: 2px 2px 0 #000, 4px 4px 0 rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.combo-display.show {
+    animation: comboPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes comboPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5) rotate(-10deg);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -80%) scale(1.5) rotate(5deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -70%) scale(1.2) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -100%) scale(1);
+    }
+}
+
 /* Selectors & Buttons */
 .grade-selector,
 .mode-selector {

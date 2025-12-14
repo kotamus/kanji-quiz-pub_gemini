@@ -5,6 +5,7 @@ let currentMode = null;
 let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
+let combo = 0;
 let allKanjiByGrade = {};
 let modalCallback = null;
 
@@ -79,6 +80,15 @@ function setMascot(state) {
     }
 }
 
+function showComboEffect(count) {
+    const display = document.getElementById('comboDisplay');
+    display.textContent = count + ' コンボ！';
+    display.classList.remove('show');
+    // Reflow to restart animation
+    void display.offsetWidth;
+    display.classList.add('show');
+}
+
 // Return to Top Menu
 function backToMenu() {
     setMascot('normal');
@@ -128,9 +138,14 @@ function selfCheck(isCorrect) {
 
     if (isCorrect) {
         score++;
+        combo++;
         correctSound.play();
         setMascot('correct');
+        if (combo > 1) {
+            showComboEffect(combo);
+        }
     } else {
+        combo = 0;
         wrongSound.play();
         setMascot('incorrect');
     }
@@ -436,6 +451,7 @@ function startQuiz() {
         }
         currentQuestionIndex = 0;
         score = 0;
+        combo = 0;
         document.getElementById('loader').style.display = 'none';
         document.getElementById('quizContainer').style.display = 'block';
         showQuestion();
@@ -501,10 +517,15 @@ function checkAnswer(answer, btn) {
     if (answer === question.correctAnswer) {
         btn.classList.add('correct');
         score++;
+        combo++;
         correctSound.play();
         setMascot('correct');
+        if (combo > 1) {
+            showComboEffect(combo);
+        }
     } else {
         btn.classList.add('incorrect');
+        combo = 0;
         wrongSound.play();
         setMascot('incorrect');
         buttons.forEach(function (b) {
