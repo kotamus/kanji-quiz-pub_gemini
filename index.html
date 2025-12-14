@@ -22,64 +22,116 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- Mascot Area -->
-        <div class="mascot-area">
-            <img src="images/mascot_normal.png" alt="マスコットキャラクター" class="mascot-img" id="mascotImg">
-            <div id="comboDisplay" class="combo-display"></div>
-        </div>
-
-        <h1>🏫 わくわく漢字クイズ</h1>
-
-        <div class="grade-selector" id="gradeSelector">
-            <p style="text-align: center; margin-bottom: 15px; color: #666;">学年を選んでください</p>
-            <div class="grade-buttons">
-                <button class="grade-btn" data-grade="1">1年生</button>
-                <button class="grade-btn" data-grade="2">2年生</button>
-                <button class="grade-btn" data-grade="3">3年生</button>
-                <button class="grade-btn" data-grade="4">4年生</button>
-                <button class="grade-btn" data-grade="5">5年生</button>
-                <button class="grade-btn" data-grade="6">6年生</button>
+    <div id="app">
+        <!-- Shared Header (Currency, Settings) -->
+        <header class="game-header" id="gameHeader" style="display: none;">
+            <div class="currency-container">
+                <div class="currency-item">
+                    <span class="currency-icon">💎</span>
+                    <span id="gemCount">0</span>
+                </div>
+                <div class="currency-item">
+                    <span class="currency-icon">🪙</span>
+                    <span id="goldCount">0</span>
+                </div>
             </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="admin-btn" onclick="showAdminPanel()">📝 問題管理</button>
+            <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+        </header>
+
+        <!-- TITLE SCENE -->
+        <section id="title-scene" class="scene active">
+            <div class="title-content">
+                <h1 class="game-title">かんじ<br>クエスト！</h1>
+                <div class="mascot-title-area">
+                    <img src="images/mascot_normal.png" alt="Dragon Mascot" class="mascot-img jump">
+                </div>
+                <button class="start-game-btn" onclick="SceneManager.showMap()">ぼうけんをはじめる</button>
+                <div class="title-menu">
+                    <button class="small-btn" onclick="showAdminPanel()">🔧 管理</button>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="mode-selector" id="modeSelector" style="display: none;">
-            <p style="text-align: center; margin-bottom: 15px; color: #666;">テストの種類を選んでください</p>
-            <div class="mode-buttons">
-                <button class="mode-btn" data-mode="reading">
-                    <div class="mode-icon">📖</div>
-                    読みテスト
-                </button>
-                <button class="mode-btn" data-mode="writing">
-                    <div class="mode-icon">✏️</div>
-                    書きテスト
-                </button>
+        <!-- MAP SCENE -->
+        <section id="map-scene" class="scene">
+            <div class="map-container">
+                <div class="map-header">
+                    <h2>ワールドマップ</h2>
+                </div>
+                <div class="map-scroll-area">
+                    <!-- Map Nodes (Islands) will be generated here or hardcoded -->
+                    <div class="map-path">
+                        <!-- SVG or CSS lines connecting islands -->
+                    </div>
+
+                    <button class="map-node" onclick="SceneManager.startLevel(1)" data-grade="1">
+                        <div class="node-visual island-1">🏰</div>
+                        <div class="node-label">1ねんせいのしま</div>
+                    </button>
+                    <!-- More nodes can be added dynamically -->
+                    <button class="map-node" onclick="SceneManager.startLevel(2)" data-grade="2">
+                        <div class="node-visual island-2">🌲</div>
+                        <div class="node-label">2ねんせいのしま</div>
+                    </button>
+                    <button class="map-node" onclick="SceneManager.startLevel(3)" data-grade="3">
+                        <div class="node-visual island-3">🌋</div>
+                        <div class="node-label">3ねんせいのしま</div>
+                    </button>
+                    <button class="map-node" onclick="SceneManager.startLevel(4)" data-grade="4">
+                        <div class="node-visual island-4">🧊</div>
+                        <div class="node-label">4ねんせいのしま</div>
+                    </button>
+                    <button class="map-node" onclick="SceneManager.startLevel(5)" data-grade="5">
+                        <div class="node-visual island-5">🌵</div>
+                        <div class="node-label">5ねんせいのしま</div>
+                    </button>
+                    <button class="map-node" onclick="SceneManager.startLevel(6)" data-grade="6">
+                        <div class="node-visual island-6">☁️</div>
+                        <div class="node-label">6ねんせいのしま</div>
+                    </button>
+                </div>
+                <button class="back-btn-map" onclick="SceneManager.showTitle()">タイトルへ</button>
             </div>
-        </div>
+        </section>
 
-        <div class="loader" id="loader">
-            <div class="loader-spinner"></div>
-            <p style="margin-top: 20px; color: #666;">問題を準備中...</p>
-        </div>
-
-        <div class="quiz-container" id="quizContainer">
-            <div class="quiz-header">
-                <button class="back-to-top-btn" onclick="showConfirmModal()">← 戻る</button>
-                <div class="question-counter" id="questionCounter">1 / 10</div>
+        <!-- BATTLE SCENE (Formerly Quiz Container) -->
+        <section id="battle-scene" class="scene">
+            <div class="battle-header">
+                <div class="question-counter" id="questionCounter"
+                    style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #fff; padding: 2px 10px; border-radius: 10px; border: 2px solid #ccc; font-size: 14px;">
+                    1 / 10</div>
+                <!-- HP Bars -->
+                <div class="hp-container player-hp">
+                    <div class="hp-label">HP</div>
+                    <div class="hp-bar-bg">
+                        <div class="hp-bar-fill" id="playerHpBar" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="vs-badge">VS</div>
+                <div class="hp-container enemy-hp">
+                    <div class="hp-label">敵</div>
+                    <div class="hp-bar-bg">
+                        <div class="hp-bar-fill" id="enemyHpBar" style="width: 100%;"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
+            <div class="battle-main">
+                <div class="avatar-area player-avatar">
+                    <img src="images/mascot_normal.png" id="battlePlayerImg" class="battle-avatar">
+                </div>
+                <div class="avatar-area enemy-avatar">
+                    <!-- Placeholder text/kanji for enemy -->
+                    <div id="enemyCharacter" class="enemy-display">問</div>
+                </div>
             </div>
 
-            <div class="question">
+            <!-- Existing Question Area -->
+            <div class="question-board">
                 <div class="question-text" id="questionText"></div>
                 <div class="reading-text" id="readingText"></div>
 
-                <!-- 書きテスト用の表示 -->
+                <!-- Writing Test Section -->
                 <div id="writingSection" style="display: none;">
                     <div class="writing-display" id="writingDisplay"></div>
                     <div class="writing-instruction">この読み方の漢字を書いてください</div>
@@ -94,26 +146,45 @@
 
                     <div class="self-check-buttons" id="selfCheckButtons" style="display: none;">
                         <button class="check-btn correct" onclick="selfCheck(true)">
-                            ⭕ 正解
+                            ⭕ 正解 (こうげき!)
                         </button>
                         <button class="check-btn incorrect" onclick="selfCheck(false)">
-                            ❌ 不正解
+                            ❌ 不正解 (ダメージ!)
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="choices" id="choices"></div>
-        </div>
+            <!-- Existing Choices Area -->
+            <div class="choices-container">
+                <div class="choices" id="choices"></div>
+            </div>
 
-        <div class="result" id="result">
-            <h2>クイズ終了！</h2>
-            <div class="score" id="score"></div>
-            <button class="restart-btn" onclick="restart()">もう一度挑戦</button>
-            <button class="back-btn" onclick="backToMenu()">メニューに戻る</button>
-        </div>
+            <button class="flee-btn" onclick="showConfirmModal()">にげる</button>
+        </section>
 
-        <!-- 管理画面 -->
+        <!-- RESULT SCENE -->
+        <section id="result-scene" class="scene">
+            <div class="result-container">
+                <h2>ステージクリア！</h2>
+                <div class="score-display" id="score"></div>
+
+                <div class="reward-box">
+                    <p>かくとくワード</p>
+                    <div class="reward-items">
+                        <!-- Rewards go here -->
+                        💎 +10
+                    </div>
+                </div>
+
+                <div class="result-buttons">
+                    <button class="restart-btn" onclick="restart()">もう一度</button>
+                    <button class="back-btn" onclick="SceneManager.showMap()">マップへ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 管理画面 (Keep consistent) -->
         <div class="admin-panel" id="adminPanel" style="display: none;">
             <div class="admin-header">
                 <h2>📝 問題管理</h2>
@@ -219,6 +290,27 @@
                     </div>
                     <textarea id="exportData" rows="8" readonly placeholder="エクスポートされたJSONデータがここに表示されます"></textarea>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 設定メニューモーダル -->
+    <div class="modal-overlay" id="settingsModal" style="display: none;">
+        <div class="modal-content settings-modal">
+            <div class="modal-header">
+                <h2>設定</h2>
+                <button class="close-modal-btn" onclick="toggleSettings()">✕</button>
+            </div>
+            <div class="settings-options">
+                <button class="settings-option" onclick="toggleSound()">
+                    <span id="soundIcon">🔊</span> 音量: <span id="soundStatus">ON</span>
+                </button>
+                <button class="settings-option" onclick="SceneManager.showTitle(); toggleSettings();">
+                    🏠 タイトルへ戻る
+                </button>
+                <button class="settings-option" onclick="showAdminPanel(); toggleSettings();">
+                    🔧 管理画面
+                </button>
             </div>
         </div>
     </div>
