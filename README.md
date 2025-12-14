@@ -13,7 +13,9 @@
 ## 使用方法
 
 ### ブラウザで使用
-https://[ユーザー名].github.io/kanji-quiz
+https://kotamus.github.io/kanji-quiz-pub_gemini/
+<br>
+※ GitHubのリポジトリ設定「Pages」で「Branch: main」を選択して保存すると公開されます。
 
 ### PWAとして使用（推奨）
 1. 上記URLにアクセス
